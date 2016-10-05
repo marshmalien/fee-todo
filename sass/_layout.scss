@@ -1,4 +1,43 @@
+
 body {
     background-color: $backgroundColor;
     font-family: $primaryFont;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+input, article {
+  width: 100%;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+article {
+  display: flex;
+  flex-direction: row;
+
+  button {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: none;
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+}
+footer {
+  flex-direction: row;
+  display: flex;
+
+  nav {
+    flex-direction: row;
+    display: flex;
+    ul {
+      padding: 0;
+    }
+  }
 }
