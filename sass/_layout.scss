@@ -6,7 +6,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
-input, article {
+input, article, p{
   width: 100%;
 }
 ul {
@@ -19,6 +19,7 @@ article {
   flex-direction: row;
 
   button {
+    align-self: center;
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -27,6 +28,10 @@ article {
     &:last-of-type {
       display: none;
     }
+  }
+
+  input {
+    display: none;
   }
 }
 footer {
