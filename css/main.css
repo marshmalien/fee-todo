@@ -383,8 +383,13 @@ article {
     width: 20px;
     border-radius: 50%;
     background: none; }
-    article button:last-of-type {
-      display: none; }
+    article button.delete {
+      border-style: none;
+      visibility: hidden; }
+    article button.visible {
+      visibility: visible;
+      color: red;
+      font-weight: bold; }
   article input {
     display: none; }
 
