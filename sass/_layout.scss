@@ -25,6 +25,7 @@ input, article {
   height: 40px;
   border: none;
   padding: none;
+  outline: none;
 }
 @include placeholder {
   font-style: italic;
@@ -35,23 +36,28 @@ ul.items {
   list-style: none;
   padding: 0;
   margin: 0;
-  li {
-    border-top: $innerBorderColor solid 2px;
-  }
+
 }
 
 article {
   display: flex;
   flex-direction: row;
+  border-top: $innerBorderColor solid 2px;
   &.completed {
     button {
       border-color: #C7DFDB;
     }
     .fa {
       color: $completedColor;
+      &::before {
+      font-size: 20px;
+      margin: -5px;
+      }
     }
   }
   p {
+    display: flex;
+    align-items: center;
     &.complete {
       text-decoration: line-through;
     }
@@ -100,6 +106,11 @@ footer {
   button {
     border-style: none;
     background-color: white;
+    &:focus {
+      outline: none;
+      border: 1px solid $titleTextColor;
+      border-radius: 2px;
+    }
   }
   nav {
     flex-direction: row;
