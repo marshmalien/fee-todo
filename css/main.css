@@ -360,29 +360,76 @@ textarea {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none; }
 
+*, *:before, *:after {
+  box-sizing: border-box; }
+
 body {
   background-color: #f5f5f5;
-  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   display: flex;
   align-items: center;
   flex-direction: column; }
+  body main {
+    width: 50%;
+    background-color: white;
+    box-shadow: grey 1px 1px 5px; }
 
-input, article, p {
-  width: 100%; }
+h1 {
+  color: #ead8d8;
+  font-weight: 100;
+  font-size: 100px;
+  margin: 0; }
 
-ul {
+input, article {
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: none; }
+
+::-webkit-input-placeholder {
+  font-style: italic;
+  color: #D8D8D8;
+  padding: 10px; }
+
+:-moz-placeholder {
+  font-style: italic;
+  color: #D8D8D8;
+  padding: 10px; }
+
+::-moz-placeholder {
+  font-style: italic;
+  color: #D8D8D8;
+  padding: 10px; }
+
+:-ms-input-placeholder {
+  font-style: italic;
+  color: #D8D8D8;
+  padding: 10px; }
+
+ul.items {
   list-style: none;
-  padding: 0; }
+  padding: 0;
+  margin: 0; }
+  ul.items li {
+    border-top: #eee solid 2px; }
 
 article {
   display: flex;
   flex-direction: row; }
+  article.completed button {
+    border-color: #C7DFDB; }
+  article.completed .fa {
+    color: #5bc0ad; }
+  article p.complete {
+    text-decoration: line-through; }
   article button {
     align-self: center;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
-    background: none; }
+    background: none;
+    border: 1px solid lightgrey;
+    margin: 10px; }
     article button.delete {
       border-style: none;
       visibility: hidden; }
@@ -395,11 +442,29 @@ article {
 
 footer {
   flex-direction: row;
-  display: flex; }
+  display: flex;
+  height: 40px;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: #eee solid 2px; }
+  footer > * {
+    color: #919191 !important; }
+  footer p {
+    width: 20%;
+    margin: 0; }
+  footer button {
+    border-style: none;
+    background-color: white; }
   footer nav {
     flex-direction: row;
     display: flex; }
     footer nav ul {
-      padding: 0; }
+      padding: 0;
+      display: flex;
+      list-style: none;
+      margin: 0; }
+      footer nav ul button {
+        color: #919191 !important; }
 
 /*# sourceMappingURL=main.css.map */
