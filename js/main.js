@@ -1,17 +1,37 @@
 $(document).ready(function() {
   "use strict";
+  var todoItems = localStorage.getItem('todoItems');
+  if (todoItems === null) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(todoItems);
+  }
 
-  // class='new-todo'
-  function addNewItem(inputText) {
+  function Todo(text) {
+    this.text = text;
+    this.completed = false;
+  }
+
+  Todo.prototype.render = function() {
     var articleContainer = $('<li>');
     var article = $('<article>').appendTo(articleContainer);
     var checkButton = $('<button>').addClass('check').appendTo(article);
-    var text = $('<p>').html(inputText).appendTo(article);
-    var editText = $('<input>').addClass('edit-todo').attr({ type: "text", value: inputText}).appendTo(article);
+    var text = $('<p>').html(this.text).appendTo(article);
+    var editText = $('<input>').addClass('edit-todo').attr({ type: "text", value: this.text}).appendTo(article);
     var deleteButton = $('<button>').addClass('delete').html('&times;').appendTo(article);
 
     $('.items').prepend(articleContainer);
+  };
+
+
+  // class='new-todo'
+  function addNewItem(inputText) {
+    var todoObject = new Todo(inputText);
+    todoObject.render();
     remainingTodoCount();
+
+    todoItems.push(todoObject);
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
     //*************************
   }
 
@@ -34,6 +54,7 @@ $(document).ready(function() {
       $(this).removeClass('fa fa-check');
     }
     remainingTodoCount();
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
     //*********************
   });
 
@@ -63,7 +84,6 @@ $(document).ready(function() {
 
   // delete button
   $('.items').on('mouseenter', 'article', function () {
-    console.log($(this));
     $(this).children('.delete').addClass("visible");
   });
 
@@ -102,6 +122,8 @@ $(document).ready(function() {
   });
   // Delete completed items
   $('.clear').click(function() {
-    $('article.completed').remove();
+    $('article.completed').slideUp('slow', function() {
+      $(this).remove();
+    });
   });
 });
