@@ -1,0 +1,31 @@
+h1 {
+  color: $titleTextColor;
+  font-weight: 100;
+  font-size: 100px;
+  margin: 0;
+}
+@include placeholder {
+  font-style: italic;
+  color: #D8D8D8;
+  padding: 10px;
+}
+article.completed {
+  button {
+    border-color: #C7DFDB;
+  }
+  .fa {
+    color: $completedColor;
+    &::before {
+    font-size: 20px;
+    margin: -5px;
+    }
+  }
+}
+article p {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  &.complete {
+    text-decoration: line-through;
+  }
+}

@@ -1,0 +1,40 @@
+
+footer {
+  flex-direction: row;
+  display: flex;
+  height: 40px;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: $innerBorderColor solid 2px;
+
+  > * {
+    color: #919191 !important;
+  }
+  p {
+    width: 20%;
+    margin: 0;
+  }
+  button {
+    border-style: none;
+    background-color: white;
+    &:focus {
+      outline: none;
+      border: 1px solid $titleTextColor;
+      border-radius: 2px;
+    }
+  }
+  nav {
+    flex-direction: row;
+    display: flex;
+    ul {
+      padding: 0;
+      display: flex;
+      list-style: none;
+      margin: 0;
+      button {
+        color: #919191 !important;
+      }
+    }
+  }
+}

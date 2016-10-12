@@ -373,19 +373,49 @@ body {
     width: 50%;
     background-color: white;
     box-shadow: grey 1px 1px 5px; }
+  body input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    padding: none;
+    outline: none; }
+  body ul.items {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+
+article {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  border-top: #eee solid 2px; }
+  article button {
+    align-self: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background: none;
+    border: 1px solid lightgrey;
+    margin: 10px; }
+    article button.delete {
+      border-style: none;
+      visibility: hidden; }
+    article button.visible {
+      visibility: visible;
+      color: #af5c5f;
+      font-weight: bold;
+      font-size: 30px;
+      margin-top: -10px; }
+  article input {
+    display: none;
+    box-shadow: inset 1px 1px 5px 2px #ddd;
+    border: 1px solid #c8c8c8; }
 
 h1 {
   color: #ead8d8;
   font-weight: 100;
   font-size: 100px;
   margin: 0; }
-
-input, article {
-  width: 100%;
-  height: 40px;
-  border: none;
-  padding: none;
-  outline: none; }
 
 ::-webkit-input-placeholder {
   font-style: italic;
@@ -407,44 +437,20 @@ input, article {
   color: #D8D8D8;
   padding: 10px; }
 
-ul.items {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
+article.completed button {
+  border-color: #C7DFDB; }
+article.completed .fa {
+  color: #5bc0ad; }
+  article.completed .fa::before {
+    font-size: 20px;
+    margin: -5px; }
 
-article {
+article p {
   display: flex;
-  flex-direction: row;
-  border-top: #eee solid 2px; }
-  article.completed button {
-    border-color: #C7DFDB; }
-  article.completed .fa {
-    color: #5bc0ad; }
-    article.completed .fa::before {
-      font-size: 20px;
-      margin: -5px; }
-  article p {
-    display: flex;
-    align-items: center; }
-    article p.complete {
-      text-decoration: line-through; }
-  article button {
-    align-self: center;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background: none;
-    border: 1px solid lightgrey;
-    margin: 10px; }
-    article button.delete {
-      border-style: none;
-      visibility: hidden; }
-    article button.visible {
-      visibility: visible;
-      color: red;
-      font-weight: bold; }
-  article input {
-    display: none; }
+  align-items: center;
+  width: 500px; }
+  article p.complete {
+    text-decoration: line-through; }
 
 footer {
   flex-direction: row;

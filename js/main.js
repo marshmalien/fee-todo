@@ -8,10 +8,11 @@ $(document).ready(function() {
     var checkButton = $('<button>').addClass('check').appendTo(article);
     var text = $('<p>').html(inputText).appendTo(article);
     var editText = $('<input>').addClass('edit-todo').attr({ type: "text", value: inputText}).appendTo(article);
-    var deleteButton = $('<button>').addClass('delete').html('X').appendTo(article);
+    var deleteButton = $('<button>').addClass('delete').html('&times;').appendTo(article);
 
     $('.items').prepend(articleContainer);
     remainingTodoCount();
+    //*************************
   }
 
   // Create new item when submitting form
@@ -33,6 +34,7 @@ $(document).ready(function() {
       $(this).removeClass('fa fa-check');
     }
     remainingTodoCount();
+    //*********************
   });
 
   // On text click, toggle class "editing" on article
@@ -72,6 +74,7 @@ $(document).ready(function() {
   $('.items').on('click', '.delete', function() {
     $(this).closest("li").remove();
     remainingTodoCount();
+    // *****************
   });
 
   // update number of items left
