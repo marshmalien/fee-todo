@@ -445,8 +445,8 @@ article.completed button {
 article.completed .fa {
   color: #5bc0ad; }
   article.completed .fa::before {
-    font-size: 20px;
-    margin: -5px; }
+    font-size: 17px;
+    margin: -8px; }
 
 article p {
   display: flex;

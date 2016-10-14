@@ -1,15 +1,8 @@
 $(document).ready(function() {
   "use strict";
-  var todoItems = localStorage.getItem('todoItems');
-  if (todoItems === null) {
-    todoItems = [];
-  } else {
-    todoItems = JSON.parse(todoItems);
-  }
-
-  function Todo(text) {
+  function Todo(text, completed) {
     this.text = text;
-    this.completed = false;
+    this.completed = completed;
   }
 
   Todo.prototype.render = function() {
@@ -21,27 +14,42 @@ $(document).ready(function() {
     var deleteButton = $('<button>').addClass('delete').html('&times;').appendTo(article);
 
     $('.items').prepend(articleContainer);
+    // .hide().slideDown('ease'); ???
+
   };
 
-
-  // class='new-todo'
-  function addNewItem(inputText) {
-    var todoObject = new Todo(inputText);
+  function addNewItem(inputText, completed) {
+    var todoObject = new Todo(inputText, completed);
     todoObject.render();
     remainingTodoCount();
 
     todoItems.push(todoObject);
-    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    localStorage.setItem('storedTodos', JSON.stringify(todoItems));
     //*************************
   }
 
   // Create new item when submitting form
-  $('form').submit(function(evt) {
+  $('form').submit(function() {
     event.preventDefault();
     var inputText = $("input").val();
-    addNewItem(inputText);
+    var completed = false;
+    addNewItem(inputText, completed);
     $(this).trigger('reset');
   });
+
+  // storedTodos is localStorage key name
+  var todoItems = localStorage.getItem('storedTodos');
+  if (todoItems === null) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(todoItems);
+    var length = todoItems.length;
+    for (var index = 0; index < length; index++) {
+      var todo = todoItems[index];
+      addNewItem(todo.text, todo.completed);
+    }
+  }
+
 
   // On button .check click, toggle class "completed" on article, and "complete" to <p>
   $('.items').on('click', '.check', function() {
@@ -54,7 +62,8 @@ $(document).ready(function() {
       $(this).removeClass('fa fa-check');
     }
     remainingTodoCount();
-    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+
+    // localStorage.setItem('storedTodos', JSON.stringify(todoItems));
     //*********************
   });
 
@@ -80,6 +89,9 @@ $(document).ready(function() {
       $(this).siblings('p').show();
       $(this).hide();
     }
+    var storage = localStorage.getItem('storedTodos');
+
+    // localStorage.setItem('storedTodos', JSON.stringify());
   });
 
   // delete button
@@ -124,6 +136,8 @@ $(document).ready(function() {
   $('.clear').click(function() {
     $('article.completed').slideUp('slow', function() {
       $(this).remove();
+
     });
+
   });
 });

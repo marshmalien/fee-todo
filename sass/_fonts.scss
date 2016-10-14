@@ -16,8 +16,8 @@ article.completed {
   .fa {
     color: $completedColor;
     &::before {
-    font-size: 20px;
-    margin: -5px;
+    font-size: 17px;
+    margin: -8px;
     }
   }
 }
