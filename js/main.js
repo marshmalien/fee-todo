@@ -1,75 +1,70 @@
 $(document).ready(function() {
   "use strict";
+  // "Global" Id
+  var nextId = 0;
+  // Todo constructor
   function Todo(text, completed) {
+    this.id = nextId++;
     this.text = text;
     this.completed = completed;
   }
-
+  // Todo prototype render method
   Todo.prototype.render = function() {
     var articleContainer = $('<li>');
-    var article = $('<article>').appendTo(articleContainer);
+    var article = $('<article>').appendTo(articleContainer).attr('id', 'todo'+this.id);
     var checkButton = $('<button>').addClass('check').appendTo(article);
     var text = $('<p>').html(this.text).appendTo(article);
     var editText = $('<input>').addClass('edit-todo').attr({ type: "text", value: this.text}).appendTo(article);
     var deleteButton = $('<button>').addClass('delete').html('&times;').appendTo(article);
 
+    if (this.completed) {
+      checkButton.addClass('fa fa-check');
+      article.addClass('completed');
+      text.addClass('complete');
+    }
     $('.items').prepend(articleContainer);
-    // .hide().slideDown('ease'); ???
-
   };
-
-  function addNewItem(inputText, completed) {
-    var todoObject = new Todo(inputText, completed);
-    todoObject.render();
-    remainingTodoCount();
-
-    todoItems.push(todoObject);
+  // Update stored todo items array
+  function updateTodoStore(todo) {
+    todoItems.push(todo);
     localStorage.setItem('storedTodos', JSON.stringify(todoItems));
-    //*************************
   }
-
   // Create new item when submitting form
   $('form').submit(function() {
     event.preventDefault();
     var inputText = $("input").val();
-    var completed = false;
-    addNewItem(inputText, completed);
+    var newTodo = new Todo(inputText, false);
+    newTodo.render();
+    updateRemainingTodoCount();
+    updateTodoStore(newTodo);
     $(this).trigger('reset');
   });
-
-  // storedTodos is localStorage key name
+  // On page load, retrieve and render localStorage
   var todoItems = localStorage.getItem('storedTodos');
   if (todoItems === null) {
     todoItems = [];
   } else {
     todoItems = JSON.parse(todoItems);
-    var length = todoItems.length;
-    for (var index = 0; index < length; index++) {
-      var todo = todoItems[index];
-      addNewItem(todo.text, todo.completed);
-    }
+    todoItems.forEach(function(todo) {
+      new Todo(todo.text, todo.completed).render();
+    });
   }
-
 
   // On button .check click, toggle class "completed" on article, and "complete" to <p>
   $('.items').on('click', '.check', function() {
     $(this).parent('article').toggleClass("completed");
     $(this).siblings('p').toggleClass("complete");
+    var button = $(this).toggleClass('fa fa-check');
+    // Assign completed to item in array
+    var parentArticleId = $(this).parent('article').attr('id');
+    var indexOfCompletedTodo = Number(parentArticleId.slice(4));
+    todoItems[indexOfCompletedTodo].completed = button.hasClass('fa fa-check');
 
-    if($(this).parent('article').hasClass("completed")) {
-      $(this).addClass('fa fa-check');
-    } else {
-      $(this).removeClass('fa fa-check');
-    }
-    remainingTodoCount();
-
-    // localStorage.setItem('storedTodos', JSON.stringify(todoItems));
-    //*********************
+    localStorage.setItem('storedTodos', JSON.stringify(todoItems));
+    updateRemainingTodoCount();
   });
-
   // On text click, toggle class "editing" on article
   // Only one .edit-todo at a time
-
   $('.items').on('click', 'p', function() {
     $('.editing').each(function() {
       $(this).removeClass('editing');
@@ -90,34 +85,33 @@ $(document).ready(function() {
       $(this).hide();
     }
     var storage = localStorage.getItem('storedTodos');
-
-    // localStorage.setItem('storedTodos', JSON.stringify());
   });
 
   // delete button
   $('.items').on('mouseenter', 'article', function () {
     $(this).children('.delete').addClass("visible");
   });
-
   $('.items').on('mouseleave', 'article', function () {
     $(this).children('.delete').removeClass("visible");
   });
-
+  // delete item from view and array
   $('.items').on('click', '.delete', function() {
     $(this).closest("li").remove();
-    remainingTodoCount();
-    // *****************
+    updateRemainingTodoCount();
+    var parentArticleId = $(this).parent('article').attr('id');
+    var indexOfRemovedTodo = Number(parentArticleId.slice(4));
+    todoItems.splice(indexOfRemovedTodo, 1);
+    localStorage.setItem('storedTodos', JSON.stringify(todoItems));
   });
 
   // update number of items left
-  function remainingTodoCount() {
+  function updateRemainingTodoCount() {
     var numIncomplete = $('article:not(.completed)').length;
     $('.incomplete-items').html(numIncomplete);
     }
     $('.show-all').click(function() {
       $('article').show();
   });
-
   // Active button (hide completed)
   $('.show-active').click(function() {
     $('article').show();
@@ -137,7 +131,10 @@ $(document).ready(function() {
     $('article.completed').slideUp('slow', function() {
       $(this).remove();
 
+      var articleId = $(this).attr('id');
+      var indexOfRemovedTodo = Number(articleId.slice(4));
+      todoItems.splice(indexOfRemovedTodo, 1);
+      localStorage.setItem('storedTodos', JSON.stringify(todoItems));
     });
-
   });
 });

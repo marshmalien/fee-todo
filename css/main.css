@@ -377,9 +377,10 @@ body {
     width: 95%;
     border: none;
     height: 40px;
-    margin-left: 5%;
     outline: none;
     padding: none; }
+    body input.new-todo {
+      margin-left: 5%; }
   body ul.items {
     list-style: none;
     padding: 0;

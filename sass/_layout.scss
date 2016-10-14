@@ -13,10 +13,12 @@ body {
     box-shadow: grey 1px 1px 5px;
   }
   input {
+    &.new-todo {
+      margin-left: 5%;
+    }
     width: 95%;
     border: none;
     height: 40px;
-    margin-left: 5%;
     outline: none;
     padding: none;
     }
